@@ -22,9 +22,6 @@ jobs:
       with:
         dotnet-version: 8.0.x
 
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v2
-
     - name: Build app for release
       run: dotnet build --configuration Release
 
