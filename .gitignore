@@ -58,3 +58,9 @@ nunit-*.xml
 /.vscode
 /build
 /.cache
+CopilotIndices/
+Copilot-chat/
+Properties/
+v[0-9][0-9]/
+FileContentIndex/
+DesignTimeBuild/
