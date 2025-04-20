@@ -11,7 +11,7 @@ namespace DataExplorer.Tests
         public void IsValid_ShouldReturnTrue_WhenArgumentsAreValid()
         {
             string[] args = new[] { "sample.txt", "avg", "score", "first_name" };
-            ArgsParser parser = new ArgsParser(args);
+            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
 
             var result = parser.IsValid();
 
@@ -22,7 +22,7 @@ namespace DataExplorer.Tests
         public void IsValid_ShouldReturnFalse_WhenOperationIsInvalid()
         {
             string[] args = new[] { "sample.txt", "invalid", "score", "first_name" };
-            ArgsParser parser = new ArgsParser(args);
+            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
 
             bool result = parser.IsValid();
 
@@ -33,7 +33,7 @@ namespace DataExplorer.Tests
         public void IsValid_ShouldReturnFalse_WhenNotEnoughArgsPassed()
         {
             string[] args = new[] { "sample.txt", "invalid", "score" };
-            ArgsParser parser = new ArgsParser(args);
+            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
 
             bool result = parser.IsValid();
 
@@ -44,7 +44,7 @@ namespace DataExplorer.Tests
         public void GetResults_ShouldReturnCorrectParsedValues_WhenArgumentsAreValid()
         {
             string[] args = new[] { "sample.txt", "sum", "score", "first_name" };
-            ArgsParser parser = new ArgsParser(args);
+            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
 
             var (file, operation, aggregation, grouping) = parser.GetResults();
 

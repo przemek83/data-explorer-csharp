@@ -1,12 +1,11 @@
-﻿using System.CommandLine;
-
-namespace DataExplorer
+﻿namespace DataExplorer
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-           ArgsParser parser = new ArgsParser(args);
+            ArgsParser parser = new(args, Operation.Allowed());
+
             if (!parser.IsValid())
                 return;
 

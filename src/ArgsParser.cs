@@ -5,12 +5,19 @@ namespace DataExplorer
 {
     public class ArgsParser
     {
-        public ArgsParser(string[] args)
+        public ArgsParser(string[] args, string[] operations)
         { 
             args_ = args;
             command_ = new RootCommand("Small tool for aggregating and grouping data.");
             foreach (Argument argument in arguments_)
                 command_.AddArgument(argument);
+
+            command_.AddValidator(result =>
+            {
+                string operation = result.GetValueForArgument<string>((Argument<string>)arguments_[1]);
+                if (!operations.Contains(operation.ToLower()))
+                    result.ErrorMessage = $"Invalid operation: {operation}. Allowed operations are: {string.Join(", ", operations)}.";
+            });
         }
 
         public bool IsValid()
