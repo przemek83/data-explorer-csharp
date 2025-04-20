@@ -13,5 +13,10 @@
 
             Console.WriteLine($"Params: {file} {operation} {aggregation} {grouping} ");
         }
+
+        internal static Dataset LoadData(string filePath)
+        {
+            return new Dataset();
+        }
     }
 }
