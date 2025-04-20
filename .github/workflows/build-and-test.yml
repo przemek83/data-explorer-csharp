@@ -1,4 +1,4 @@
-name: .NET Core Desktop
+name: Build & test
 
 on: [push, pull_request]
 
