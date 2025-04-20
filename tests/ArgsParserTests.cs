@@ -2,7 +2,6 @@ using System.CommandLine;
 using System.CommandLine.Parsing;
 using System.Runtime.Intrinsics.X86;
 using Xunit;
-using static System.Formats.Asn1.AsnWriter;
 
 namespace DataExplorer.Tests
 {
