@@ -42,7 +42,7 @@ namespace DataExplorer
         private readonly Argument<string>[] arguments_ =
         [
             new ("file", "Input file"), 
-            new ("operation", "OArithmetic operation to perform"),
+            new ("operation", "Arithmetic operation to perform"),
             new ("aggregation", "Aggregation column (numerical only)"),
             new ("grouping", "Grouping by column")
         ];
