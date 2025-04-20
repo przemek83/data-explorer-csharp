@@ -32,9 +32,12 @@ namespace DataExplorer
 
         private readonly Command command_;
         private readonly string[] args_;
-        private readonly Argument<string>[] arguments_ = new Argument<string>[] { new Argument<string>("file", "Input file"), 
-            new Argument<string>("operation", "OArithmetic operation to perform"),
-            new Argument<string>("aggregation", "Aggregation column (numerical only)"),
-            new Argument<string>("grouping", "Grouping by column")};
+        private readonly Argument<string>[] arguments_ =
+        [
+            new ("file", "Input file"), 
+            new ("operation", "OArithmetic operation to perform"),
+            new ("aggregation", "Aggregation column (numerical only)"),
+            new ("grouping", "Grouping by column")
+        ];
     }
 }
