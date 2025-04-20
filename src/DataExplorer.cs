@@ -14,13 +14,13 @@ namespace DataExplorer
     {
         static void Main(string[] args)
         {
-            var rootCommand = new RootCommand("Small tool for aggregating and grouping data.");
-            rootCommand.AddArgument(new Argument<string>("file", "Input file"));
-            rootCommand.AddArgument(new Argument<string>("operation", "OArithmetic operation to perform"));
-            rootCommand.AddArgument(new Argument<string>("aggregation", "Aggregation column (numerical only)"));
-            rootCommand.AddArgument(new Argument<string>("grouping", "Grouping by column"));
+           ArgsParser parser = new ArgsParser(args);
+            if (!parser.IsValid())
+                return;
 
-            rootCommand.Invoke(args);
+            var (file, operation, aggregation, grouping) = parser.GetResults();
+
+            Console.WriteLine($"Params: {file} {operation} {aggregation} {grouping} ");
 
             Calculator calc = new Calculator();
             double result = calc.Add(2, 3);
