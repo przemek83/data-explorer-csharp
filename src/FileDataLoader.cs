@@ -19,7 +19,7 @@
 
         public IColumn[] GetData()
         {
-            throw new NotImplementedException();
+            return columns_;
         }
 
         public string[] GetHeaders()
@@ -39,8 +39,12 @@
                 return false;
 
             columns_ = ProcessColumnTypesLine(reader.ReadLine() ?? "");
+             
+            if (headers_.Length != columns_.Length || 
+                columns_.Any(column => column.GetColumnType() == ColumnType.UNKNOWN))
+                return false;
 
-            return true;
+            return ProcessDataLines(reader);
         }
 
         private static string[] ProcessHeadersLine(string line)
@@ -67,6 +71,38 @@
             }
 
             return columns;
+        }
+
+        private bool ProcessDataLines(StreamReader reader)
+        {
+            int lineNumber = 3;
+            while (!reader.EndOfStream)
+            {
+                string line = reader.ReadLine() ?? "";
+                string[] values = line.Split(';');
+                if (values.Length != headers_.Length)
+                {
+                    Console.WriteLine($"Data mismach in line {lineNumber}. Expected {headers_.Length} values, got {values.Length}.");
+                    return false;
+                }
+
+                for (int i = 0; i < values.Length; i++)
+                {
+                    if (columns_[i].GetColumnType() == ColumnType.INTEGER)
+                    {
+                        if (int.TryParse(values[i], out int value))
+                            ((ColumnNumeric)columns_[i]).AddData(value);
+                        else
+                            Console.WriteLine($"Cannot parse value in line {lineNumber}, column {i} to int. Value is {values[i]}.");
+                    }
+                    else if (columns_[i].GetColumnType() == ColumnType.STRING)
+                    {
+                        ((ColumnString)columns_[i]).AddData(values[i]);
+                    }
+                }
+                ++lineNumber;
+            }
+            return true;
         }
 
         private readonly Stream stream_;
