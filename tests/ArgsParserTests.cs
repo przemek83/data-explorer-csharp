@@ -41,6 +41,17 @@ namespace DataExplorer.Tests
         }
 
         [Fact]
+        public void IsValid_ShouldReturnFalse_WhenTooManyArgsPassed()
+        {
+            string[] args = new[] { "sample.txt", "avg", "score", "first_name", "excesive" };
+            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
+
+            bool result = parser.IsValid();
+
+            Assert.False(result);
+        }
+
+        [Fact]
         public void GetResults_ShouldReturnCorrectParsedValues_WhenArgumentsAreValid()
         {
             string[] args = new[] { "sample.txt", "sum", "score", "first_name" };
