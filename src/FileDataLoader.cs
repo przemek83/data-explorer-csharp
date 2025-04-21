@@ -2,6 +2,11 @@
 {
     internal class FileDataLoader : IDataLoader
     {
+        public FileDataLoader(FileStream stream)
+        {
+            stream_ = stream;
+        }
+
         public ColumnType[] GetColumnTypes()
         {
             throw new NotImplementedException();
@@ -21,5 +26,7 @@
         {
             throw new NotImplementedException();
         }
+
+        private readonly FileStream stream_;
     }
 }

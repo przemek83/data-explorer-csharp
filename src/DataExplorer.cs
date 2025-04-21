@@ -1,4 +1,6 @@
-﻿namespace DataExplorer
+﻿using System.IO;
+
+namespace DataExplorer
 {
     internal class Program
     {
@@ -9,14 +11,34 @@
             if (!parser.IsValid())
                 return;
 
-            var (file, operation, aggregation, grouping) = parser.GetResults();
+            var (filePath, operation, aggregation, grouping) = parser.GetResults();
 
-            Console.WriteLine($"Params: {file} {operation} {aggregation} {grouping} ");
+            var (ok, dataset) = LoadData(filePath);
+            if (!ok)
+                return;
+
+            Console.WriteLine($"Params: {filePath} {operation} {aggregation} {grouping} ");
         }
 
-        internal static Dataset LoadData(string filePath)
+        internal static (bool, Dataset?) LoadData(string filePath)
         {
-            return new Dataset();
+            if (!File.Exists(filePath))
+            {
+                Console.WriteLine($"File {filePath} does not exist.");
+                return (false, null);
+            }
+
+            FileStream stream = File.OpenRead(filePath);
+            FileDataLoader loader = new FileDataLoader(stream);
+            Dataset dataset = new Dataset(loader);
+
+            if(!dataset.Initialize())
+            {
+                Console.WriteLine($"Failed to initialize dataset from {filePath}.");
+                return (false, null);
+            }
+
+            return (true, dataset);
         }
     }
 }

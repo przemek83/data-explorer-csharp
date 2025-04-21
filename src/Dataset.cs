@@ -2,11 +2,12 @@
 {
     public class Dataset
     {
-        public Dataset()
+        public Dataset(IDataLoader loader)
         {
+            loader_ = loader;
         }
 
-        public bool Initialize(string file)
+        public bool Initialize()
         {
             return false;
         }
@@ -34,5 +35,6 @@
         readonly private string[] headers_;
         readonly private ColumnType[] columnTypes_;
         readonly private string[,] data_;
+        readonly private IDataLoader loader_;
     }
 }
