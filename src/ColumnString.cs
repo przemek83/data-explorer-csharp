@@ -10,7 +10,6 @@ namespace DataExplorer
     {
         public ColumnString()
         {
-            throw new NotImplementedException();
         }
         public ColumnType GetColumnType()
         {

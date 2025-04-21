@@ -9,7 +9,12 @@
 
         public ColumnType[] GetColumnTypes()
         {
-            throw new NotImplementedException();
+            ColumnType[] types = new ColumnType[columns_.Length];
+            for (int i = 0; i < types.Length; ++i)
+            {
+                types[i] = columns_[i].GetColumnType();
+            }
+            return types;
         }
 
         public IColumn[] GetData()
@@ -33,7 +38,7 @@
             if (reader.EndOfStream)
                 return false;
 
-            //columns_ = processColumnTypesLine(reader.ReadLine() ?? "");
+            columns_ = processColumnTypesLine(reader.ReadLine() ?? "");
 
             return true;
         }

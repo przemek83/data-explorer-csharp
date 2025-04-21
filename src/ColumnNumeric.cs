@@ -4,7 +4,6 @@
     {
         public ColumnNumeric()
         {
-            throw new NotImplementedException();
         }
         public ColumnType GetColumnType()
         {
