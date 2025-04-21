@@ -4,12 +4,12 @@ namespace DataExplorer
 {
     public interface IDataLoader
     {
-        public abstract bool Load();
+        bool Load();
 
-        public abstract string[] GetHeaders();
+        string[] GetHeaders();
 
-        public abstract ColumnType[] GetColumnTypes();
+        ColumnType[] GetColumnTypes();
 
-        public abstract IColumn[] GetData();
+        IColumn[] GetData();
     }
 }
