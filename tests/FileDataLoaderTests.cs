@@ -121,7 +121,7 @@ dave;0;ender's_game;8
 
         static MemoryStream GetInvalidStreamWithTooLittleEntries()
         {
-            string sampleData = "header1;header2\ninteger;string\n1;hello";
+            string sampleData = "header1;header2\ninteger;string\n1";
             return new MemoryStream(Encoding.UTF8.GetBytes(sampleData));
         }
     }
