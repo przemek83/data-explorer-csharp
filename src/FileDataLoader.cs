@@ -1,8 +1,8 @@
 ﻿namespace DataExplorer
 {
-    internal class FileDataLoader : IDataLoader
+    public class FileDataLoader : IDataLoader
     {
-        public FileDataLoader(FileStream stream)
+        public FileDataLoader(Stream stream)
         {
             stream_ = stream;
         }
@@ -27,6 +27,6 @@
             throw new NotImplementedException();
         }
 
-        private readonly FileStream stream_;
+        private readonly Stream stream_;
     }
 }
