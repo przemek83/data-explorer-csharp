@@ -1,22 +1,97 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using DataExplorer;
-using Newtonsoft.Json.Linq;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Tests
 {
     public class FileDataLoaderTests
     {
+        [Fact]
+        public void Load_ShouldReturnTrue_WhenValidSmallDataLoaded()
+        {
+            FileDataLoader loader = new FileDataLoader(GetSmallValidStream());
+            Assert.True(loader.Load());
+        }
 
         [Fact]
-        public void Load_ShouldReturnTrue_WhenProperDataLoaded()
+        public void Load_ShouldReturnTrue_WhenValidDataLoaded()
         {
             FileDataLoader loader = new FileDataLoader(GetValidStream());
             Assert.True(loader.Load());
         }
 
-        Stream GetValidStream()
+        [Fact]
+        public void Load_ShouldReturnFalse_WhenInvalidDataLoadedWithTooManyEntries()
+        {
+            FileDataLoader loader = new FileDataLoader(GetInvalidStreamWithTooMuchEntries());
+            Assert.False(loader.Load());
+        }
+
+        [Fact]
+        public void Load_ShouldReturnFalse_WhenInvalidDataLoadedWithTooLittleEntries()
+        {
+            FileDataLoader loader = new FileDataLoader(GetInvalidStreamWithTooLittleEntries());
+            Assert.False(loader.Load());
+        }
+
+        [Fact]
+        public void GetColumnTypes_ShouldReturnCorrectColumnTypes_WhenSmallDataIsLoaded()
+        {
+            FileDataLoader loader = new FileDataLoader(GetSmallValidStream());
+            loader.Load();
+            ColumnType[] types = loader.GetColumnTypes();
+            Assert.Equal([ColumnType.INTEGER, ColumnType.STRING], types);
+        }
+
+        [Fact]
+        public void GetColumnTypes_ShouldReturnCorrectColumnTypes_WhenDataIsLoaded()
+        {
+            FileDataLoader loader = new FileDataLoader(GetValidStream());
+            loader.Load();
+            ColumnType[] types = loader.GetColumnTypes();
+            Assert.Equal([ColumnType.STRING, ColumnType.INTEGER, ColumnType.STRING, ColumnType.INTEGER], types);
+        }
+
+        [Fact]
+        public void GetHeaders_ShouldReturnCorrectHeaders_WhenDataIsLoaded()
+        {
+            FileDataLoader loader = new FileDataLoader(GetValidStream());
+            loader.Load();
+            string[] headers = loader.GetHeaders();
+            Assert.Equal(["first_name", "age", "movie_name", "score"], headers);
+        }
+
+        [Fact]
+        public void GetHeaders_ShouldReturnCorrectHeaders_WhenSmallDataIsLoaded()
+        {
+            FileDataLoader loader = new FileDataLoader(GetSmallValidStream());
+            loader.Load();
+            string[] headers = loader.GetHeaders();
+            Assert.Equal(["header1", "header2"], headers);
+        }
+
+        [Fact]
+        public void GetData_ShouldReturnCorrectData_WhenDataIsLoaded()
+        {
+            FileDataLoader loader = new FileDataLoader(GetValidStream());
+            loader.Load();
+            IColumn[] data = loader.GetData();
+            Assert.Equal(4, data.Length);
+            foreach (var column in data)
+                Assert.Equal(6, column.GetSize());
+        }
+
+        [Fact]
+        public void GetData_ShouldReturnCorrectData_WhenSmallDataIsLoaded()
+        {
+            FileDataLoader loader = new FileDataLoader(GetSmallValidStream());
+            loader.Load();
+            IColumn[] data = loader.GetData();
+            Assert.Equal(2, data.Length);
+            foreach (var column in data)
+                Assert.Equal(1, column.GetSize());
+        }
+
+        static MemoryStream GetValidStream()
         {
             string sampleData = """
 first_name;age;movie_name;score
@@ -30,6 +105,24 @@ dave; 0; ender's_game;8
 """;
 
            return new MemoryStream(Encoding.UTF8.GetBytes(sampleData));
+        }
+
+        static MemoryStream GetSmallValidStream()
+        {
+            string sampleData = "header1;header2\ninteger;string\n1;hello";
+            return new MemoryStream(Encoding.UTF8.GetBytes(sampleData));
+        }
+
+        static MemoryStream GetInvalidStreamWithTooMuchEntries()
+        {
+            string sampleData = "header1;header2\ninteger;string\n1;hello;f";
+            return new MemoryStream(Encoding.UTF8.GetBytes(sampleData));
+        }
+
+        static MemoryStream GetInvalidStreamWithTooLittleEntries()
+        {
+            string sampleData = "header1;header2\ninteger;string\n1;hello";
+            return new MemoryStream(Encoding.UTF8.GetBytes(sampleData));
         }
     }
 }
