@@ -10,6 +10,6 @@ namespace DataExplorer
 
         public abstract ColumnType[] GetColumnTypes();
 
-        public abstract string[,] GetData();
+        public abstract IColumn[] GetData();
     }
 }

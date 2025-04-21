@@ -1,23 +1,24 @@
 ﻿namespace DataExplorer
 {
-    internal class FileDataLoader : IDataLoader
+    public  class ColumnNumeric : IColumn
     {
-        public ColumnType[] GetColumnTypes()
+        public ColumnNumeric()
         {
             throw new NotImplementedException();
         }
-
-        public IColumn[] GetData()
+        public ColumnType GetColumnType()
+        {
+            return ColumnType.INTEGER;
+        }
+        public int GetSize()
         {
             throw new NotImplementedException();
         }
-
-        public string[] GetHeaders()
+        public void AddData(double value)
         {
             throw new NotImplementedException();
         }
-
-        public bool Load()
+        public double GetData(int index)
         {
             throw new NotImplementedException();
         }
