@@ -5,21 +5,27 @@
         public ColumnNumeric()
         {
         }
+
         public ColumnType GetColumnType()
         {
             return ColumnType.INTEGER;
         }
+
         public int GetSize()
         {
-            throw new NotImplementedException();
+            return data_.Count;
         }
-        public void AddData(double value)
+
+        public void AddData(int value)
         {
-            throw new NotImplementedException();
+            data_.Add(value);
         }
-        public double GetData(int index)
+
+        public int GetData(int index)
         {
-            throw new NotImplementedException();
+            return data_[index];
         }
+
+        private readonly List<int> data_ = [];
     }
 }

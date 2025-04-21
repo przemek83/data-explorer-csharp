@@ -17,15 +17,17 @@ namespace DataExplorer
         }
         public int GetSize()
         {
-            throw new NotImplementedException();
+            return data_.Count;
         }
         public void AddData(string value)
         {
-            throw new NotImplementedException();
+            data_.Add(value);
         }
         public string GetData(int index)
         {
-            throw new NotImplementedException();
+            return data_[index];
         }
+
+        private readonly List<string> data_ = [];
     }
 }
