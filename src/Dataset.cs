@@ -9,7 +9,7 @@
 
         public bool Initialize()
         {
-            return false;
+            return loader_.Load();
         }
 
         public (bool, int) ColumnNameToId(string columnName)
