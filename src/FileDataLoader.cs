@@ -11,9 +11,8 @@
         {
             ColumnType[] types = new ColumnType[columns_.Length];
             for (int i = 0; i < types.Length; ++i)
-            {
                 types[i] = columns_[i].GetColumnType();
-            }
+
             return types;
         }
 
@@ -106,7 +105,7 @@
         }
 
         private readonly Stream stream_;
-        private string[] headers_;
-        private IColumn[] columns_;
+        private string[] headers_ = [];
+        private IColumn[] columns_ = [];
     }
 }
