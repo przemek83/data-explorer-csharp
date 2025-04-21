@@ -33,17 +33,17 @@
             if (reader.EndOfStream)
                 return false;
 
-            headers_ = processHeadersLine(reader.ReadLine() ?? "");
+            headers_ = ProcessHeadersLine(reader.ReadLine() ?? "");
             
             if (reader.EndOfStream)
                 return false;
 
-            columns_ = processColumnTypesLine(reader.ReadLine() ?? "");
+            columns_ = ProcessColumnTypesLine(reader.ReadLine() ?? "");
 
             return true;
         }
 
-        private string[] processHeadersLine(string line)
+        private static string[] ProcessHeadersLine(string line)
         {
             string[] headers = line.Split(';');
             for (int i = 0; i < headers.Length; i++)
@@ -51,7 +51,7 @@
             return headers;
         }
 
-        private IColumn[] processColumnTypesLine(string line)
+        private static IColumn[] ProcessColumnTypesLine(string line)
         {
             string[] columnTypeNames = line.Split(';');
             IColumn[] columns = new IColumn[columnTypeNames.Length];
