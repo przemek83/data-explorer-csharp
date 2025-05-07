@@ -5,9 +5,9 @@ namespace DataExplorer
 {
     public class ArgsParser
     {
-        public ArgsParser(string[] args, string[] operations)
+        public ArgsParser(string[] appParams, string[] operations)
         {
-            args_ = args;
+            appParams_ = appParams;
             command_ = new RootCommand("Small tool for aggregating and grouping data.");
             foreach (Argument argument in arguments_)
                 command_.AddArgument(argument);
@@ -22,12 +22,12 @@ namespace DataExplorer
 
         public bool IsValid()
         {
-            return command_.Invoke(args_) == 0;
+            return command_.Invoke(appParams_) == 0;
         }
 
         public (string file, string operation, string aggregation, string grouping) GetResults()
         {
-            ParseResult result = command_.Parse(args_);
+            ParseResult result = command_.Parse(appParams_);
             string file = result.GetValueForArgument<string>((Argument<string>)arguments_[0]);
             string operation = result.GetValueForArgument<string>((Argument<string>)arguments_[1]);
             string aggregation = result.GetValueForArgument<string>((Argument<string>)arguments_[2]);
@@ -38,7 +38,7 @@ namespace DataExplorer
 
 
         private readonly Command command_;
-        private readonly string[] args_;
+        private readonly string[] appParams_;
         private readonly Argument<string>[] arguments_ =
         [
             new ("file", "Input file"),

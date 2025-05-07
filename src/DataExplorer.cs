@@ -4,9 +4,9 @@ namespace DataExplorer
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main(string[] appParams)
         {
-            ArgsParser parser = new(args, Operation.Allowed());
+            ArgsParser parser = new(appParams, Operation.Allowed());
 
             if (!parser.IsValid())
                 return;
