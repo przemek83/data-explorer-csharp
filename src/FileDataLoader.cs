@@ -33,13 +33,13 @@
                 return false;
 
             headers_ = ProcessHeadersLine(reader.ReadLine() ?? "");
-            
+
             if (reader.EndOfStream)
                 return false;
 
             columns_ = ProcessColumnTypesLine(reader.ReadLine() ?? "");
-             
-            if (headers_.Length != columns_.Length || 
+
+            if (headers_.Length != columns_.Length ||
                 columns_.Any(column => column.GetColumnType() == ColumnType.UNKNOWN))
                 return false;
 

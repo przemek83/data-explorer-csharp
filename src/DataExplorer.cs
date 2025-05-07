@@ -32,7 +32,7 @@ namespace DataExplorer
             FileDataLoader loader = new FileDataLoader(stream);
             Dataset dataset = new Dataset(loader);
 
-            if(!dataset.Initialize())
+            if (!dataset.Initialize())
             {
                 Console.WriteLine($"Failed to initialize dataset from {filePath}.");
                 return (false, null);

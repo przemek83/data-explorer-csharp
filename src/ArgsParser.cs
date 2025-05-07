@@ -6,7 +6,7 @@ namespace DataExplorer
     public class ArgsParser
     {
         public ArgsParser(string[] args, string[] operations)
-        { 
+        {
             args_ = args;
             command_ = new RootCommand("Small tool for aggregating and grouping data.");
             foreach (Argument argument in arguments_)
@@ -41,7 +41,7 @@ namespace DataExplorer
         private readonly string[] args_;
         private readonly Argument<string>[] arguments_ =
         [
-            new ("file", "Input file"), 
+            new ("file", "Input file"),
             new ("operation", "Arithmetic operation to perform"),
             new ("aggregation", "Aggregation column (numerical only)"),
             new ("grouping", "Grouping by column")

@@ -1,6 +1,6 @@
 ﻿namespace DataExplorer
 {
-    public  class ColumnNumeric : IColumn
+    public class ColumnNumeric : IColumn
     {
         public ColumnNumeric()
         {

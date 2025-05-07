@@ -104,7 +104,7 @@ dave;0;inception;8
 dave;0;ender's_game;8
 """;
 
-           return new MemoryStream(Encoding.UTF8.GetBytes(sampleData));
+            return new MemoryStream(Encoding.UTF8.GetBytes(sampleData));
         }
 
         static MemoryStream GetSmallValidStream()
