@@ -1,5 +1,3 @@
-using Xunit;
-
 namespace DataExplorer.Tests
 {
     public class ColumnNumericTests

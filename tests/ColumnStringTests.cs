@@ -1,6 +1,3 @@
-using System;
-using Xunit;
-
 namespace DataExplorer.Tests
 {
     public class ColumnStringTests
