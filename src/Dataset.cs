@@ -34,7 +34,6 @@
 
         readonly private string[] headers_;
         readonly private ColumnType[] columnTypes_;
-        readonly private string[,] data_;
         readonly private IDataLoader loader_;
     }
 }
