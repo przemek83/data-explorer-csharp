@@ -1,20 +1,24 @@
 ﻿namespace DataExplorer
 {
-    public class Dataset
+    public class Dataset(IDataLoader loader)
     {
-        public Dataset(IDataLoader loader)
-        {
-            loader_ = loader;
-        }
-
         public bool Initialize()
         {
-            return loader_.Load();
+            bool success = loader_.Load();
+            if (!success)
+                return false;
+            headers_ = loader_.GetHeaders();
+            columnTypes_ = loader_.GetColumnTypes();
+
+            return true;
         }
 
         public (bool, int) ColumnNameToId(string columnName)
         {
-            return (false, -1);
+            int index = Array.IndexOf(headers_, columnName);
+            if (index == -1)
+                return (false, index);
+            return (true, index);
         }
 
         public (bool, string) ColumnIdToName(int columnId)
@@ -32,8 +36,8 @@
             return (false, new List<dynamic>());
         }
 
-        readonly private string[] headers_;
-        readonly private ColumnType[] columnTypes_;
-        readonly private IDataLoader loader_;
+        private string[] headers_ = [];
+        private ColumnType[] columnTypes_ = [];
+        readonly private IDataLoader loader_ = loader;
     }
 }
