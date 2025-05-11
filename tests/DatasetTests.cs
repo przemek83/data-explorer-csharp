@@ -4,10 +4,10 @@ namespace DataExplorer.Tests
     {
         private class MockDataLoader : IDataLoader
         {
-            public bool LoadResult { get; set; }
-            public string[] Headers { get; set; }
-            public ColumnType[] ColumnTypes { get; set; }
-            public IColumn[] Data { get; set; }
+            public bool LoadResult { get; set; } = true;
+            public string[] Headers { get; set; } = [];
+            public ColumnType[] ColumnTypes { get; set; } = [];
+            public IColumn[] Data { get; set; } = [];
 
             public bool Load() => LoadResult;
             public string[] GetHeaders() => Headers;
@@ -19,7 +19,7 @@ namespace DataExplorer.Tests
         public void Initialize_ShouldReturnTrue_WhenLoaderSucceeds()
         {
             // Arrange
-            var loader = new MockDataLoader { LoadResult = true };
+            var loader = new MockDataLoader();
             var dataset = new Dataset(loader);
 
             // Act
@@ -56,6 +56,25 @@ namespace DataExplorer.Tests
             // Assert
             Assert.False(success);
             Assert.Equal(-1, columnId);
+        }
+
+        [Fact]
+        public void ColumnNameToId_ShouldReturnTrueAndProperId_WhenColumnNameFound()
+        {
+            string[] headers = new[] { "Column1", "Column2" };
+            var loader = new MockDataLoader { Headers = headers };
+            var dataset = new Dataset(loader);
+            dataset.Initialize();
+
+            int index = 0;
+            var (success, columnId) = dataset.ColumnNameToId(headers[index]);
+            Assert.True(success);
+            Assert.Equal(index, columnId);
+
+            index = 1;
+            (success, columnId) = dataset.ColumnNameToId(headers[index]);
+            Assert.True(success);
+            Assert.Equal(index, columnId);
         }
 
         [Fact]
