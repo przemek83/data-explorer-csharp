@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.CommandLine.Parsing;
+using System.IO;
 
 namespace DataExplorer
 {
@@ -11,21 +12,19 @@ namespace DataExplorer
             if (!parser.IsValid())
                 return;
 
-            var (filePath, operation, aggregation, grouping) = parser.GetResults();
-
-            var (ok, dataset) = LoadData(filePath);
-            if (!ok)
+            var (dataset, query) = PrepareDatasetAndQuery(parser);
+            if (dataset == null)
                 return;
 
-            Console.WriteLine($"Params: {filePath} {operation} {aggregation} {grouping} ");
+            Console.WriteLine($"Group {query.GroupingColumnID}, aggr {query.AggregateColumnID}, type {query.Type}");
         }
 
-        internal static (bool, Dataset?) LoadData(string filePath)
+        internal static Dataset? LoadData(string filePath)
         {
             if (!File.Exists(filePath))
             {
                 Console.WriteLine($"File {filePath} does not exist.");
-                return (false, null);
+                return null;
             }
 
             FileStream stream = File.OpenRead(filePath);
@@ -35,10 +34,39 @@ namespace DataExplorer
             if (!dataset.Initialize())
             {
                 Console.WriteLine($"Failed to initialize dataset from {filePath}.");
-                return (false, null);
+                return null;
             }
 
-            return (true, dataset);
+            return dataset;
+        }
+
+        internal static (Dataset?, Query) PrepareDatasetAndQuery(ArgsParser parser)
+        { 
+            Query query = new Query();
+            var (filePath, operation, aggregation, grouping) = parser.GetResults();
+            Console.WriteLine($"Params: {filePath} {operation} {aggregation} {grouping} ");
+
+            Dataset? dataset = LoadData(filePath);
+            if (dataset == null)
+                return (null, query);
+
+            (bool ok, int aggregationColumnId) = dataset.ColumnNameToId(aggregation);
+            if (!ok)
+            {
+                Console.WriteLine($"Column name {aggregation} is not valid.");
+                return (null, query);
+            }
+
+            (ok, int groupingColumnId) = dataset.ColumnNameToId(grouping);
+            if (!ok)
+            {
+                Console.WriteLine($"Column name {grouping} is not valid.");
+                return (null, query);
+            }
+
+            query = new(aggregationColumnId, groupingColumnId, Operation.ToType(operation));
+
+            return (dataset, query);
         }
     }
 }
