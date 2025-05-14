@@ -31,9 +31,9 @@
             return (false, ColumnType.UNKNOWN);
         }
 
-        public (bool, List<dynamic>) GetColumnData(int columnId)
+        public (bool, IColumn?) GetColumnData(int columnId)
         {
-            return (false, new List<dynamic>());
+            return (false, null);
         }
 
         private string[] headers_ = [];
