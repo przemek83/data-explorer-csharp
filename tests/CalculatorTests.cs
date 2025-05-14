@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Xunit;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DataExplorer.Tests
 {
@@ -12,9 +13,9 @@ namespace DataExplorer.Tests
         [InlineData(Operation.Type.AVG, new[] { "tim", "tamas", "dave" }, new[] { 26, 44, 0 }, 1, 0)]
         [InlineData(Operation.Type.MIN, new[] { "tim", "tamas", "dave" }, new[] { 26, 44, 0 }, 1, 0)]
         [InlineData(Operation.Type.MAX, new[] { "tim", "tamas", "dave" }, new[] { 26, 44, 0 }, 1, 0)]
-        [InlineData(Operation.Type.AVG, new[] { "inception", "pulp_fiction", "ender's_game" }, new[] { 8, 4, 8 }, 3, 0)]
-        [InlineData(Operation.Type.MIN, new[] { "inception", "pulp_fiction", "ender's_game" }, new[] { 8, 4, 8 }, 3, 0)]
-        [InlineData(Operation.Type.MAX, new[] { "inception", "pulp_fiction", "ender's_game" }, new[] { 8, 4, 8 }, 3, 0)]
+        [InlineData(Operation.Type.AVG, new[] { "tim", "tamas", "dave" }, new[] { 8, 5, 8 }, 3, 0)]
+        [InlineData(Operation.Type.MIN, new[] { "tim", "tamas", "dave" }, new[] { 8, 4, 8 }, 3, 0)]
+        [InlineData(Operation.Type.MAX, new[] { "tim", "tamas", "dave" }, new[] { 8, 7, 8 }, 3, 0)]
         public void Execute_ShouldGroupAndAggregateCorrectly(Operation.Type operationType, string[] keys, int[] values, int aggregateColumnID, int groupingColumnID)
         {
             // Arrange
@@ -36,10 +37,10 @@ namespace DataExplorer.Tests
                 new ColumnType[] { ColumnType.STRING, ColumnType.INTEGER, ColumnType.STRING, ColumnType.INTEGER },
                 new IColumn[]
                 {
-                        new MockColumn<string>(new[] { "tim", "tim", "tamas", "tamas", "dave", "dave" }),
-                        new MockColumn<int>(new[] { 26, 26, 44, 44, 0, 0 }),
-                        new MockColumn<string>(new[] { "inception", "pulp_fiction", "inception", "pulp_fiction", "inception", "ender's_game" }),
-                        new MockColumn<int>(new[] { 8, 8, 7, 4, 8, 8 })
+                        CreateStringColumn([ "tim", "tim", "tamas", "tamas", "dave", "dave" ]),
+                        CreateNumericColumn([26, 26, 44, 44, 0, 0 ]),
+                        CreateStringColumn([ "inception", "pulp_fiction", "inception", "pulp_fiction", "inception", "ender's_game" ]),
+                        CreateNumericColumn([ 8, 8, 7, 4, 8, 8 ])
                 });
             var dataset = new Dataset(dataLoader);
             dataset.Initialize();
@@ -53,32 +54,21 @@ namespace DataExplorer.Tests
                 expected[keys[i]] = values[i];
             return expected;
         }
-    }
 
-    public class MockColumn<T> : IColumn
-    {
-        private readonly T[] data;
-
-        public MockColumn(T[] data)
+        private ColumnString CreateStringColumn(string[] data)
         {
-            this.data = data;
+            var column = new ColumnString();
+            foreach (var item in data)
+                column.AddData(item);
+            return column;
         }
 
-        public ColumnType GetColumnType()
+        private ColumnNumeric CreateNumericColumn(int[] data)
         {
-            return typeof(T) == typeof(int) ? ColumnType.INTEGER :
-                   typeof(T) == typeof(string) ? ColumnType.STRING :
-                   ColumnType.UNKNOWN;
-        }
-
-        public int GetSize()
-        {
-            return data.Length;
-        }
-
-        public T[] GetData()
-        {
-            return data;
+            var column = new ColumnNumeric();
+            foreach (var item in data)
+                column.AddData(item);
+            return column;
         }
     }
 

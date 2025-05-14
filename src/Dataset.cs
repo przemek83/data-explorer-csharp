@@ -34,12 +34,9 @@
             return (false, ColumnType.UNKNOWN);
         }
 
-        public (bool, IColumn?) GetColumnData(int columnId)
+        public IColumn GetColumn(int columnId)
         {
-            if (columnId >= 0 && columnId < columnTypes_.Length)
-                return (true, loader_.GetData()[columnId]);
-
-            return (false, null);
+            return loader_.GetData()[columnId];
         }
 
         private string[] headers_ = [];
