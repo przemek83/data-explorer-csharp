@@ -92,18 +92,40 @@ namespace DataExplorer.Tests
             Assert.Equal(string.Empty, columnName);
         }
 
-        [Fact]
-        public void GetColumnType_ShouldReturnFalseAndUnknown_WhenColumnIdInvalid()
+        [Theory]
+        [InlineData(0, ColumnType.INTEGER)]
+        [InlineData(1, ColumnType.STRING)]
+        public void GetColumnType_ShouldReturnCorrectType_WhenColumnIdIsValid(int columnId, ColumnType expectedType)
         {
             // Arrange
-            var loader = new MockDataLoader { ColumnTypes = new[] { ColumnType.INTEGER, ColumnType.STRING } };
+            var loader = new MockDataLoader
+            {
+                ColumnTypes = new[] { ColumnType.INTEGER, ColumnType.STRING }
+            };
             var dataset = new Dataset(loader);
+            dataset.Initialize();
 
             // Act
-            var (success, columnType) = dataset.GetColumnType(5);
+            var (found, columnType) = dataset.GetColumnType(columnId);
 
             // Assert
-            Assert.False(success);
+            Assert.True(found);
+            Assert.Equal(expectedType, columnType);
+        }
+
+        [Fact]
+        public void GetColumnType_ShouldReturnUnknown_WhenColumnIdIsInvalid()
+        {
+            var loader = new MockDataLoader
+            {
+                ColumnTypes = new[] { ColumnType.INTEGER, ColumnType.STRING }
+            };
+            var dataset = new Dataset(loader);
+            dataset.Initialize();
+
+            var (found, columnType) = dataset.GetColumnType(2);
+
+            Assert.False(found);
             Assert.Equal(ColumnType.UNKNOWN, columnType);
         }
 
