@@ -109,20 +109,5 @@ namespace DataExplorer.Tests
             Assert.False(found);
             Assert.Equal(ColumnType.UNKNOWN, columnType);
         }
-
-        //[Fact]
-        //public void GetColumnData_ShouldReturnFalseAndEmptyList_WhenColumnIdInvalid()
-        //{
-        //    // Arrange
-        //    var loader = new MockDataLoader();
-        //    var dataset = new Dataset(loader);
-
-        //    // Act
-        //    var (success, columnData) = dataset.GetColumnData(5);
-
-        //    // Assert
-        //    Assert.False(success);
-        //    Assert.Empty(columnData);
-        //}
     }
 }
