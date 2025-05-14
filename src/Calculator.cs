@@ -39,26 +39,26 @@
                 groupCounts[groupKey]++;
             }
 
-            var groupAverages = new Dictionary<string, int>();
+            var results = new Dictionary<string, int>();
             foreach (var groupKey in groupSums.Keys)
-                groupAverages[groupKey] = groupSums[groupKey] / groupCounts[groupKey];
+                results[groupKey] = groupSums[groupKey] / groupCounts[groupKey];
 
-            return groupAverages;
+            return results;
         }
 
         private static Dictionary<string, int> ComputeExtremum(ColumnNumeric aggregateColumn, ColumnString groupingColumn, Operation.Type type)
         {
-            var groupExtremums = new Dictionary<string, int>();
+            var results = new Dictionary<string, int>();
             for (int i = 0; i < groupingColumn.GetSize(); i++)
             {
                 string groupKey = groupingColumn.GetData(i);
                 int value = aggregateColumn.GetData(i);
-                if (!groupExtremums.ContainsKey(groupKey))
-                    groupExtremums[groupKey] = value;
+                if (!results.ContainsKey(groupKey))
+                    results[groupKey] = value;
                 else
-                    groupExtremums[groupKey] = type == Operation.Type.MIN ? Math.Min(groupExtremums[groupKey], value) : Math.Max(groupExtremums[groupKey], value);
+                    results[groupKey] = type == Operation.Type.MIN ? Math.Min(results[groupKey], value) : Math.Max(results[groupKey], value);
             }
-            return groupExtremums;
+            return results;
         }
 
         private readonly Dataset dataset_ = dataset;
