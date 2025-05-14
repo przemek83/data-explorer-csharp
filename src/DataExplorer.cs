@@ -17,6 +17,13 @@ namespace DataExplorer
                 return;
 
             Console.WriteLine($"Group {query.GroupingColumnID}, aggr {query.AggregateColumnID}, type {query.Type}");
+
+            Calculator calculator = new(dataset);
+            Dictionary<string, int> results = calculator.Execute(query);
+            foreach (var result in results)
+            {
+                Console.WriteLine($"{result.Key}: {result.Value}");
+            }
         }
 
         internal static Dataset? LoadData(string filePath)
