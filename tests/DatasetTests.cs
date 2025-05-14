@@ -2,19 +2,6 @@ namespace DataExplorer.Tests
 {
     public class DatasetTests
     {
-        private class MockDataLoader : IDataLoader
-        {
-            public bool LoadResult { get; set; } = true;
-            public string[] Headers { get; set; } = [];
-            public ColumnType[] ColumnTypes { get; set; } = [];
-            public IColumn[] Data { get; set; } = [];
-
-            public bool Load() => LoadResult;
-            public string[] GetHeaders() => Headers;
-            public ColumnType[] GetColumnTypes() => ColumnTypes;
-            public IColumn[] GetData() => Data;
-        }
-
         [Fact]
         public void Initialize_ShouldReturnTrue_WhenLoaderSucceeds()
         {
@@ -47,7 +34,7 @@ namespace DataExplorer.Tests
         public void ColumnNameToId_ShouldReturnFalseAndNegativeOne_WhenColumnNameNotFound()
         {
             // Arrange
-            var loader = new MockDataLoader { Headers = new[] { "Column1", "Column2" } };
+            var loader = new MockDataLoader (headers: new[] { "Column1", "Column2" }, [], []);
             var dataset = new Dataset(loader);
 
             // Act
@@ -62,7 +49,7 @@ namespace DataExplorer.Tests
         public void ColumnNameToId_ShouldReturnTrueAndProperId_WhenColumnNameFound()
         {
             string[] headers = new[] { "Column1", "Column2" };
-            var loader = new MockDataLoader { Headers = headers };
+            var loader = new MockDataLoader(headers: headers, [], []);
             var dataset = new Dataset(loader);
             dataset.Initialize();
 
@@ -81,7 +68,7 @@ namespace DataExplorer.Tests
         public void ColumnIdToName_ShouldReturnFalseAndEmptyString_WhenColumnIdInvalid()
         {
             // Arrange
-            var loader = new MockDataLoader { Headers = new[] { "Column1", "Column2" } };
+            var loader = new MockDataLoader (headers: new[] { "Column1", "Column2" }, [], []);
             var dataset = new Dataset(loader);
 
             // Act
@@ -98,10 +85,7 @@ namespace DataExplorer.Tests
         public void GetColumnType_ShouldReturnCorrectType_WhenColumnIdIsValid(int columnId, ColumnType expectedType)
         {
             // Arrange
-            var loader = new MockDataLoader
-            {
-                ColumnTypes = new[] { ColumnType.INTEGER, ColumnType.STRING }
-            };
+            var loader = new MockDataLoader([], columnTypes: new[] { ColumnType.INTEGER, ColumnType.STRING }, []);
             var dataset = new Dataset(loader);
             dataset.Initialize();
 
@@ -116,10 +100,7 @@ namespace DataExplorer.Tests
         [Fact]
         public void GetColumnType_ShouldReturnUnknown_WhenColumnIdIsInvalid()
         {
-            var loader = new MockDataLoader
-            {
-                ColumnTypes = new[] { ColumnType.INTEGER, ColumnType.STRING }
-            };
+            var loader = new MockDataLoader([], columnTypes: new[] { ColumnType.INTEGER, ColumnType.STRING }, []);
             var dataset = new Dataset(loader);
             dataset.Initialize();
 

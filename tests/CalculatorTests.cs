@@ -71,26 +71,4 @@ namespace DataExplorer.Tests
             return column;
         }
     }
-
-    public class MockDataLoader : IDataLoader
-    {
-        private readonly string[] headers_;
-        private readonly ColumnType[] columnTypes_;
-        private readonly IColumn[] data_;
-
-        public MockDataLoader(string[] headers, ColumnType[] columnTypes, IColumn[] data)
-        {
-            headers_ = headers;
-            columnTypes_ = columnTypes;
-            data_ = data;
-        }
-
-        public bool Load() => true;
-
-        public string[] GetHeaders() => headers_;
-
-        public ColumnType[] GetColumnTypes() => columnTypes_;
-
-        public IColumn[] GetData() => data_;
-    }
 }
