@@ -36,6 +36,9 @@
 
         public (bool, IColumn?) GetColumnData(int columnId)
         {
+            if (columnId >= 0 && columnId < columnTypes_.Length)
+                return (true, loader_.GetData()[columnId]);
+
             return (false, null);
         }
 
