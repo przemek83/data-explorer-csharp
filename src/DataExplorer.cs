@@ -21,9 +21,7 @@ namespace DataExplorer
             Calculator calculator = new(dataset);
             Dictionary<string, int> results = calculator.Execute(query);
             foreach (var result in results)
-            {
                 Console.WriteLine($"{result.Key}: {result.Value}");
-            }
         }
 
         internal static Dataset? LoadData(string filePath)
@@ -48,7 +46,7 @@ namespace DataExplorer
         }
 
         internal static (Dataset?, Query) PrepareDatasetAndQuery(ArgsParser parser)
-        { 
+        {
             Query query = new Query();
             var (filePath, operation, aggregation, grouping) = parser.GetResults();
             Console.WriteLine($"Params: {filePath} {operation} {aggregation} {grouping} ");
