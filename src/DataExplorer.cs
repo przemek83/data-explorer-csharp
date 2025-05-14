@@ -69,6 +69,18 @@ namespace DataExplorer
                 return (null, query);
             }
 
+            if (dataset.GetColumnType(aggregationColumnId).Item2 != ColumnType.INTEGER)
+            {
+                Console.WriteLine($"Column {aggregation} is not of type INTEGER.");
+                return (null, query);
+            }
+
+            if (dataset.GetColumnType(groupingColumnId).Item2 != ColumnType.STRING)
+            {
+                Console.WriteLine($"Column {grouping} is not of type STRING.");
+                return (null, query);
+            }
+
             query = new(aggregationColumnId, groupingColumnId, Operation.ToType(operation));
 
             return (dataset, query);
