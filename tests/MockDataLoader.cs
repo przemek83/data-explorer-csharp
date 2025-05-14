@@ -4,7 +4,7 @@ namespace DataExplorer.Tests
 {
     public class MockDataLoader : IDataLoader
     {
-        public bool LoadResult { get;  set; } = true;
+        public bool LoadResult { get; set; } = true;
         private readonly string[] headers_ = [];
         private readonly ColumnType[] columnTypes_ = [];
         private readonly IColumn[] data_ = [];

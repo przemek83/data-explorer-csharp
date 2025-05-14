@@ -30,7 +30,7 @@
         {
             if (columnId >= 0 && columnId < columnTypes_.Length)
                 return (true, columnTypes_[columnId]);
- 
+
             return (false, ColumnType.UNKNOWN);
         }
 

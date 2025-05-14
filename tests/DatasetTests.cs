@@ -34,7 +34,7 @@ namespace DataExplorer.Tests
         public void ColumnNameToId_ShouldReturnFalseAndNegativeOne_WhenColumnNameNotFound()
         {
             // Arrange
-            var loader = new MockDataLoader (headers: new[] { "Column1", "Column2" }, [], []);
+            var loader = new MockDataLoader(headers: new[] { "Column1", "Column2" }, [], []);
             var dataset = new Dataset(loader);
 
             // Act
@@ -68,7 +68,7 @@ namespace DataExplorer.Tests
         public void ColumnIdToName_ShouldReturnFalseAndEmptyString_WhenColumnIdInvalid()
         {
             // Arrange
-            var loader = new MockDataLoader (headers: new[] { "Column1", "Column2" }, [], []);
+            var loader = new MockDataLoader(headers: new[] { "Column1", "Column2" }, [], []);
             var dataset = new Dataset(loader);
 
             // Act
