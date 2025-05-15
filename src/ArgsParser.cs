@@ -15,6 +15,12 @@ namespace DataExplorer
             command_.AddValidator(result =>
             {
                 string operation = result.GetValueForArgument<string>((Argument<string>)arguments_[1]);
+                if (string.IsNullOrEmpty(operation))
+                {
+                    result.ErrorMessage = "Operation is required.";
+                    return;
+                }
+
                 if (!operations.Contains(operation.ToLower()))
                     result.ErrorMessage = $"Invalid operation: {operation}. Allowed operations are: {string.Join(", ", operations)}.";
             });
