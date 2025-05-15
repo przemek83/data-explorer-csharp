@@ -26,7 +26,7 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Execute unit tests
-        run: dotnet test --collect:"XPlat Code Coverage"
+        run: dotnet test --collect:"XPlat Code Coverage;Format=opencover"
     
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v5
