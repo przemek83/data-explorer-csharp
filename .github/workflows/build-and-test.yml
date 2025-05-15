@@ -8,7 +8,7 @@ jobs:
     runs-on: windows-latest
 
     env:
-      Solution_Name: data-explorer-dotnet
+      Solution_Name: data-explorer-csharp
       Test_Project_Path: tests
 
     steps:
