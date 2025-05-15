@@ -23,7 +23,7 @@ jobs:
           dotnet-version: 8.0.x
 
       - name: Install JunitXml package
-        run: dotnet add package JunitXml.TestLogger
+        run: dotnet add ${{ env.Test_Project_Path }} package JunitXml.TestLogger
 
       - name: Build app for release
         run: dotnet build --configuration Release
