@@ -22,14 +22,23 @@ jobs:
         with:
           dotnet-version: 8.0.x
 
+      - name: Install JunitXml package
+        run: dotnet add package JunitXml.TestLogger
+
       - name: Build app for release
         run: dotnet build --configuration Release
 
       - name: Execute unit tests
-        run: dotnet test --collect:"XPlat Code Coverage;Format=opencover"
+        run: dotnet test --collect:"XPlat Code Coverage;Format=opencover" --logger:"junit;LogFilePath=junit.xml"
     
       - name: Upload results to Codecov
         uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
 
