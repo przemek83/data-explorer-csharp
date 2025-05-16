@@ -3,27 +3,10 @@ name: Build & test
 on: [push, pull_request]
 
 jobs:
-
-  build:
-    runs-on: windows-latest
-
-    env:
-      Solution_Name: data-explorer-csharp
-      Test_Project_Path: tests
-
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
-
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-
-    - name: Build app for release
-      run: dotnet build --configuration Release
-
-    - name: Execute unit tests
-      run: dotnet test
+  build-and-test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest]
+    uses: przemek83/workflows/.github/workflows/build-and-test-csharp.yml@main
+    with:
+      platform: ${{ matrix.platform }}
