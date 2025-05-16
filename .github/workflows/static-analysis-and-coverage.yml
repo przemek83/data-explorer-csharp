@@ -3,46 +3,6 @@ name: Static analysis and coverage
 on: [push, pull_request]
 
 jobs:
-  build:
-    name: Analyze
-    runs-on: ubuntu-latest
-
-    env:
-      Solution_Name: data-explorer-csharp
-      Test_Project_Path: tests
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Install .NET Core
-        uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: 8.0.x
-
-      - name: Install JunitXml package
-        run: dotnet add ${{ env.Test_Project_Path }} package JunitXml.TestLogger
-
-      - name: Build app for release
-        run: dotnet build --configuration Release
-
-      - name: Execute unit tests
-        run: dotnet test --collect:"XPlat Code Coverage;Format=opencover" --logger:"junit;LogFilePath=junit.xml"
-    
-      - name: Upload results to Codecov
-        uses: codecov/codecov-action@v5
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env: 
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  analyze:
+    uses: przemek83/workflows/.github/workflows/static-analysis-and-coverage-csharp.yml@main
+    secrets: inherit
