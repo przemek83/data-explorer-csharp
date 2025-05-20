@@ -32,5 +32,14 @@ dotnet build
 ```
 When executed in the root directory of the repository, it should create a binary called `DataExplorer` deep in `src` folder hierarchy. 
 
+# Usage 
+TODO
+
+# Input data format
+TODO
+
+# Testing
+TODO
+
 # License
 The project is distributed under the MIT License. See `LICENSE` for more information.
