@@ -8,6 +8,22 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=przemek83_data-explorer-csharp&metric=coverage)](https://sonarcloud.io/summary/new_code?id=przemek83_data-explorer-csharp)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=przemek83_data-explorer-csharp&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=przemek83_data-explorer-csharp)
 
-# data-explorer-csharp
+# Table of content
+- [About Project](#about-project)
+- [Problem description](#problem-description)
+- [Building](#building)
+- [Usage ](#usage)
+- [Input data format](#input-data-format)
+- [Testing](#testing)
+- [License](#license)
 
-Work in progress.
+Work in progress
+
+# About Project
+A small tool for aggregating and grouping data. Written in C#, it mimics the functionality of my older data-explorer project, which was written in C++. Created to refresh C# knowledge during the recruitment process and actual work. Moreover, allowing to exercise TDD and have some fun.
+
+# Problem description
+For given input data, allow calculating the average, minimum and maximum, taking into consideration the grouping column.
+
+# License
+The project is distributed under the MIT License. See `LICENSE` for more information.
