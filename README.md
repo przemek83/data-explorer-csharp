@@ -25,5 +25,12 @@ A small tool for aggregating and grouping data. Written in C#, it mimics the fun
 # Problem description
 For given input data, allow calculating the average, minimum and maximum, taking into consideration the grouping column.
 
+# Building
+First, you need to download the repo to your machine. Make sure you have .Net installed, and the version is greater or equal to `8.0`. Having that done, use the following command to build:
+```
+dotnet build
+```
+When executed in the root directory of the repository, it should create a binary called `DataExplorer` deep in `src` folder hierarchy. 
+
 # License
 The project is distributed under the MIT License. See `LICENSE` for more information.
