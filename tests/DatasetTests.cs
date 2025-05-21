@@ -64,21 +64,6 @@ namespace DataExplorer.Tests
             Assert.Equal(index, columnId);
         }
 
-        [Fact]
-        public void ColumnIdToName_ShouldReturnFalseAndEmptyString_WhenColumnIdInvalid()
-        {
-            // Arrange
-            var loader = new MockDataLoader(headers: new[] { "Column1", "Column2" }, [], []);
-            var dataset = new Dataset(loader);
-
-            // Act
-            var (success, columnName) = dataset.ColumnIdToName(5);
-
-            // Assert
-            Assert.False(success);
-            Assert.Equal(string.Empty, columnName);
-        }
-
         [Theory]
         [InlineData(0, ColumnType.INTEGER)]
         [InlineData(1, ColumnType.STRING)]

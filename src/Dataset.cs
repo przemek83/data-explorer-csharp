@@ -21,11 +21,6 @@
             return (true, index);
         }
 
-        public (bool, string) ColumnIdToName(int columnId)
-        {
-            return (false, "");
-        }
-
         public (bool, ColumnType) GetColumnType(int columnId)
         {
             if (columnId >= 0 && columnId < columnTypes_.Length)
