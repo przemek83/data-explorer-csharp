@@ -73,30 +73,35 @@
             while (!reader.EndOfStream)
             {
                 string line = reader.ReadLine() ?? "";
-                string[] values = line.Split(';');
-                if (values.Length != headers_.Length)
+                string[] data = line.Split(';');
+                if (data.Length != headers_.Length)
                 {
-                    Console.WriteLine($"Data mismach in line {lineNumber}. Expected {headers_.Length} values, got {values.Length}.");
+                    Console.WriteLine($"Data mismach in line {lineNumber}. Expected {headers_.Length} values, got {data.Length}.");
                     return false;
                 }
 
-                for (int i = 0; i < values.Length; i++)
-                {
-                    if (columns_[i].GetColumnType() == ColumnType.INTEGER)
-                    {
-                        if (int.TryParse(values[i], out int value))
-                            ((ColumnNumeric)columns_[i]).AddData(value);
-                        else
-                            Console.WriteLine($"Cannot parse value in line {lineNumber}, column {i} to int. Value is {values[i]}.");
-                    }
-                    else if (columns_[i].GetColumnType() == ColumnType.STRING)
-                    {
-                        ((ColumnString)columns_[i]).AddData(values[i]);
-                    }
-                }
+                ProcessData(data, lineNumber);
                 ++lineNumber;
             }
             return true;
+        }
+
+        private void ProcessData(string[] data, int lineNumber)
+        {
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (columns_[i].GetColumnType() == ColumnType.INTEGER)
+                {
+                    if (int.TryParse(data[i], out int value))
+                        ((ColumnNumeric)columns_[i]).AddData(value);
+                    else
+                        Console.WriteLine($"Cannot parse value in line {lineNumber}, column {i} to int. Value is {data[i]}.");
+                }
+                else if (columns_[i].GetColumnType() == ColumnType.STRING)
+                {
+                    ((ColumnString)columns_[i]).AddData(data[i]);
+                }
+            }
         }
 
         private readonly Stream stream_ = stream;
