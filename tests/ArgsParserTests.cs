@@ -1,6 +1,8 @@
+using Xunit.Abstractions;
+
 namespace DataExplorer.Tests
 {
-    public class ArgsParserTests
+    public class ArgsParserTests : IClassFixture<ConsoleSuppressor>
     {
         [Fact]
         public void IsValid_ShouldReturnTrue_WhenArgumentsAreValid()
