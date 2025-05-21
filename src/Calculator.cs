@@ -4,8 +4,8 @@
     {
         public Dictionary<string, int> Execute(Query query)
         {
-            ColumnNumeric aggregateColumn = dataset.GetColumn(query.AggregateColumnID) as ColumnNumeric;
-            ColumnString groupingColumn = dataset.GetColumn(query.GroupingColumnID) as ColumnString;
+            ColumnNumeric aggregateColumn = (ColumnNumeric)dataset_.GetColumn(query.AggregateColumnID);
+            ColumnString groupingColumn = (ColumnString)dataset_.GetColumn(query.GroupingColumnID);
 
             switch (query.Type)
             {
