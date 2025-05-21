@@ -51,7 +51,7 @@ namespace DataExplorer
 
             Dataset? dataset = LoadData(filePath);
             if (dataset == null)
-                return (null, query);   
+                return (null, query);
 
             (bool ok, int aggregationColumnId) = dataset.ColumnNameToId(aggregation);
             if (!ok)
