@@ -34,7 +34,7 @@ namespace DataExplorer
         public bool ShouldExit()
         {
             ParseResult result = command_.Parse(appParams_);
-            foreach (var option in command_.Options)
+            foreach (Option option in command_.Options)
             {
                 if (result.HasOption(option) && (option.Name == "version" || option.Name == "help"))
                     return true;
