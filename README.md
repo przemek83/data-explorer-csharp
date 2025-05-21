@@ -32,8 +32,25 @@ dotnet build
 ```
 When executed in the root directory of the repository, it should create a binary called `DataExplorer` deep in `src` folder hierarchy. 
 
-# Usage 
-TODO
+# Usage
+Having file `file` and `DataExplorer` binary in the current directory, the application can be launched via command:
+`DataExplorer file {avg,min,max} aggregation grouping`  
+Where:  
++ `file` - name of file with data to load,  
++ `{avg,min,max}` - type of operation; use one of those,  
++ `aggregation` - name of column used for aggregating data,  
++ `grouping` - name of column used for grouping data.
+
+Example usage:  
+`DataExplorer sample.txt avg score first_name`  
+
+Example output:
+```
+Execute: AVG score GROUP BY first_name
+tim: 8
+tamas: 5
+dave: 8
+```
 
 # Input data format
 TODO
