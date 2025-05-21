@@ -31,6 +31,17 @@ namespace DataExplorer
             return command_.Invoke(appParams_) == 0;
         }
 
+        public bool ShouldExit()
+        {
+            ParseResult result = command_.Parse(appParams_);
+            foreach (var option in command_.Options)
+            {
+                if (result.HasOption(option) && (option.Name == "version" || option.Name == "help"))
+                    return true;
+            }
+            return false;
+        }
+
         public (string file, string operation, string aggregation, string grouping) GetResults()
         {
             ParseResult result = command_.Parse(appParams_);

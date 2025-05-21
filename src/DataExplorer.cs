@@ -9,7 +9,7 @@ namespace DataExplorer
         {
             ArgsParser parser = new(appParams, Operation.Allowed());
 
-            if (!parser.IsValid())
+            if (!parser.IsValid() || parser.ShouldExit())
                 return;
 
             var (dataset, query) = PrepareDatasetAndQuery(parser);
