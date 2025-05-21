@@ -77,7 +77,26 @@ dave;0;ender's_game;8
 A non-flexible format of data was used for simplicity of parsing.
 
 # Testing
-TODO
+To execute tests manually, open root directory of repository and run command:
+```
+dotnet test
+```
+It should generate similar output on Windows:
+
+    <path>\data-explorer-csharp>dotnet test
+    Restore complete (0.4s)
+      DataExplorer succeeded (0.2s) → src\bin\Debug\net8.0\DataExplorer.dll
+      Tests succeeded (0.1s) → tests\bin\Debug\net8.0\Tests.dll
+    [xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 8.0.15)
+    [xUnit.net 00:00:00.19]   Discovering: Tests
+    [xUnit.net 00:00:00.23]   Discovered:  Tests
+    [xUnit.net 00:00:00.23]   Starting:    Tests
+    [xUnit.net 00:00:00.29]   Finished:    Tests
+      Tests test succeeded (0.8s)
+
+    Test summary: total: 58, failed: 0, succeeded: 58, skipped: 0, duration: 0.8s
+    Build succeeded in 1.6s
+
 
 # License
 The project is distributed under the MIT License. See `LICENSE` for more information.
