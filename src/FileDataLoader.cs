@@ -1,12 +1,7 @@
 ﻿namespace DataExplorer
 {
-    public class FileDataLoader : IDataLoader
+    public class FileDataLoader(Stream stream) : IDataLoader
     {
-        public FileDataLoader(Stream stream)
-        {
-            stream_ = stream;
-        }
-
         public ColumnType[] GetColumnTypes()
         {
             ColumnType[] types = new ColumnType[columns_.Length];
@@ -28,7 +23,7 @@
 
         public bool Load()
         {
-            StreamReader reader = new StreamReader(stream_);
+            var reader = new StreamReader(stream_);
             if (reader.EndOfStream)
                 return false;
 
@@ -104,7 +99,7 @@
             return true;
         }
 
-        private readonly Stream stream_;
+        private readonly Stream stream_ = stream;
         private string[] headers_ = [];
         private IColumn[] columns_ = [];
     }
