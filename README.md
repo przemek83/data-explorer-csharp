@@ -53,7 +53,28 @@ dave: 8
 ```
 
 # Input data format
-TODO
+Input data need to have the following structure:  
+```
+<column 1 name>;<column 2 name>;<column 3 name>  
+<column 1 type>;<column 2 type>;<column 3 type>  
+<data 1 1>;<data 2 1>;<data 3 1> 
+...  
+<data 1 n>;<data 2 n>;<data 3 n> 
+```
+Where column type can be `string` or `integer`.  
+
+Example data:
+```
+first_name;age;movie_name;score
+string;integer;string;integer
+tim;26;inception;8
+tim;26;pulp_fiction;8
+tamas;44;inception;7
+tamas;44;pulp_fiction;4
+dave;0;inception;8
+dave;0;ender's_game;8
+```
+A non-flexible format of data was used for simplicity of parsing.
 
 # Testing
 TODO
