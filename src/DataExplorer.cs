@@ -16,8 +16,6 @@ namespace DataExplorer
             if (dataset == null)
                 return;
 
-            Console.WriteLine($"Group {query.GroupingColumnID}, aggr {query.AggregateColumnID}, type {query.Type}");
-
             Calculator calculator = new(dataset);
             Dictionary<string, int> results = calculator.Execute(query);
             foreach (var result in results)
@@ -49,11 +47,11 @@ namespace DataExplorer
         {
             Query query = new Query();
             var (filePath, operation, aggregation, grouping) = parser.GetResults();
-            Console.WriteLine($"Params: {filePath} {operation} {aggregation} {grouping} ");
+            Console.WriteLine($"Execute: {operation.ToUpper()} {aggregation} GROUP BY {grouping}");
 
             Dataset? dataset = LoadData(filePath);
             if (dataset == null)
-                return (null, query);
+                return (null, query);   
 
             (bool ok, int aggregationColumnId) = dataset.ColumnNameToId(aggregation);
             if (!ok)
