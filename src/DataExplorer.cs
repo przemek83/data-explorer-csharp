@@ -7,7 +7,7 @@ namespace DataExplorer
     {
         static void Main(string[] appParams)
         {
-            ArgsParser parser = new(appParams, Operation.Allowed());
+            var parser = new ArgsParser(appParams, Operation.Allowed());
 
             if (!parser.IsValid() || parser.ShouldExit())
                 return;
@@ -16,7 +16,7 @@ namespace DataExplorer
             if (dataset == null)
                 return;
 
-            Calculator calculator = new(dataset);
+            var calculator = new Calculator(dataset);
             Dictionary<string, int> results = calculator.Execute(query);
             foreach (var result in results)
                 Console.WriteLine($"{result.Key}: {result.Value}");
@@ -31,8 +31,8 @@ namespace DataExplorer
             }
 
             FileStream stream = File.OpenRead(filePath);
-            FileDataLoader loader = new FileDataLoader(stream);
-            Dataset dataset = new Dataset(loader);
+            var loader = new FileDataLoader(stream);
+            var dataset = new Dataset(loader);
 
             if (!dataset.Initialize())
             {
@@ -45,7 +45,7 @@ namespace DataExplorer
 
         internal static (Dataset?, Query) PrepareDatasetAndQuery(ArgsParser parser)
         {
-            Query query = new Query();
+            var query = new Query();
             var (filePath, operation, aggregation, grouping) = parser.GetResults();
             Console.WriteLine($"Execute: {operation.ToUpper()} {aggregation} GROUP BY {grouping}");
 
