@@ -46,17 +46,20 @@
             return results;
         }
 
-        private static Dictionary<string, int> ComputeExtremum(ColumnNumeric aggregateColumn, ColumnString groupingColumn, Operation.Type type)
+        private static Dictionary<string, int> ComputeExtremum(ColumnNumeric aggregateColumn,
+            ColumnString groupingColumn,
+            Operation.Type type)
         {
             var results = new Dictionary<string, int>();
             for (int i = 0; i < groupingColumn.GetSize(); i++)
             {
                 string groupKey = groupingColumn.GetData(i);
-                int value = aggregateColumn.GetData(i);
-                if (!results.ContainsKey(groupKey))
-                    results[groupKey] = value;
+                int newValue = aggregateColumn.GetData(i);
+                if (!results.TryGetValue(groupKey, out int oldValue))
+                    results[groupKey] = newValue;
                 else
-                    results[groupKey] = type == Operation.Type.MIN ? Math.Min(results[groupKey], value) : Math.Max(results[groupKey], value);
+                    results[groupKey] =
+                        (type == Operation.Type.MIN ? Math.Min(oldValue, newValue) : Math.Max(oldValue, newValue));
             }
             return results;
         }
