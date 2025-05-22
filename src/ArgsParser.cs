@@ -5,6 +5,14 @@ namespace DataExplorer
 {
     public class ArgsParser
     {
+        public readonly struct ParserResults(string file, string operation, string aggregation, string grouping)
+        {
+            public readonly string FilePath = file;
+            public readonly string Operation = operation;
+            public readonly string Aggregation = aggregation;
+            public readonly string Grouping = grouping;
+        }
+
         public ArgsParser(string[] appParams, string[] operations)
         {
             appParams_ = appParams;
@@ -42,7 +50,7 @@ namespace DataExplorer
             return false;
         }
 
-        public (string file, string operation, string aggregation, string grouping) GetResults()
+        public ParserResults GetResults()
         {
             ParseResult result = command_.Parse(appParams_);
             string file = result.GetValueForArgument<string>((Argument<string>)arguments_[0]);
@@ -50,9 +58,8 @@ namespace DataExplorer
             string aggregation = result.GetValueForArgument<string>((Argument<string>)arguments_[2]);
             string grouping = result.GetValueForArgument<string>((Argument<string>)arguments_[3]);
 
-            return (file, operation, aggregation, grouping);
+            return new ParserResults(file, operation, aggregation, grouping);
         }
-
 
         private readonly Command command_;
         private readonly string[] appParams_;

@@ -1,4 +1,6 @@
+using System.CommandLine.Parsing;
 using Xunit.Abstractions;
+using static DataExplorer.ArgsParser;
 
 namespace DataExplorer.Tests
 {
@@ -54,12 +56,12 @@ namespace DataExplorer.Tests
             string[] args = new[] { "sample.txt", "sum", "score", "first_name" };
             ArgsParser parser = new ArgsParser(args, Operation.Allowed());
 
-            var (file, operation, aggregation, grouping) = parser.GetResults();
+            ParserResults results = parser.GetResults();
 
-            Assert.Equal("sample.txt", file);
-            Assert.Equal("sum", operation);
-            Assert.Equal("score", aggregation);
-            Assert.Equal("first_name", grouping);
+            Assert.Equal("sample.txt", results.FilePath);
+            Assert.Equal("sum", results.Operation);
+            Assert.Equal("score", results.Aggregation);
+            Assert.Equal("first_name", results.Grouping);
         }
     }
 }
