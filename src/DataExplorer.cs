@@ -2,7 +2,7 @@
 
 namespace DataExplorer
 {
-    internal class Program
+    public class Program
     {
         static void Main(string[] appParams)
         {
@@ -49,7 +49,7 @@ namespace DataExplorer
             return dataset;
         }
 
-        internal static (bool, Query) PrepareQuery(Dataset dataset, ParserResults results)
+        public static (bool, Query) PrepareQuery(Dataset dataset, ParserResults results)
         {
             var query = new Query();
          
