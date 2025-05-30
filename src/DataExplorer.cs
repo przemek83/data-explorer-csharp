@@ -1,6 +1,4 @@
-﻿using System.CommandLine.Parsing;
-using System.IO;
-using static DataExplorer.ArgsParser;
+﻿using static DataExplorer.ArgsParser;
 
 namespace DataExplorer
 {
@@ -13,8 +11,15 @@ namespace DataExplorer
             if (!parser.IsValid() || parser.ShouldExit())
                 return;
 
-            var (dataset, query) = PrepareDatasetAndQuery(parser);
+            ParserResults parserResults = parser.GetResults();
+            Console.WriteLine($"Execute: {parserResults.Operation.ToUpper()} {parserResults.Aggregation} GROUP BY {parserResults.Grouping}");
+
+            Dataset? dataset = LoadData(parserResults.FilePath);
             if (dataset == null)
+                return;
+
+            var (ok, query) = PrepareQuery(parserResults);
+            if (!ok)
                 return;
 
             var calculator = new Calculator(dataset);
@@ -44,45 +49,42 @@ namespace DataExplorer
             return dataset;
         }
 
-        internal static (Dataset?, Query) PrepareDatasetAndQuery(ArgsParser parser)
+        internal static (bool, Query) PrepareQuery(ParserResults results)
         {
             var query = new Query();
-            ParserResults results = parser.GetResults();
-            Console.WriteLine($"Execute: {results.Operation.ToUpper()} {results.Aggregation} GROUP BY {results.Grouping}");
-
             Dataset? dataset = LoadData(results.FilePath);
             if (dataset == null)
-                return (null, query);
+                return (false, query);
 
             (bool ok, int aggregationColumnId) = dataset.ColumnNameToId(results.Aggregation);
             if (!ok)
             {
                 Console.WriteLine($"Column name {results.Aggregation} is not valid.");
-                return (null, query);
+                return (false, query);
             }
 
             (ok, int groupingColumnId) = dataset.ColumnNameToId(results.Grouping);
             if (!ok)
             {
                 Console.WriteLine($"Column name {results.Grouping} is not valid.");
-                return (null, query);
+                return (false, query);
             }
 
             if (dataset.GetColumnType(aggregationColumnId).Item2 != ColumnType.INTEGER)
             {
                 Console.WriteLine($"Column {results.Aggregation} is not of type INTEGER.");
-                return (null, query);
+                return (false, query);
             }
 
             if (dataset.GetColumnType(groupingColumnId).Item2 != ColumnType.STRING)
             {
                 Console.WriteLine($"Column {results.Grouping} is not of type STRING.");
-                return (null, query);
+                return (false, query);
             }
 
             query = new(aggregationColumnId, groupingColumnId, Operation.ToType(results.Operation));
 
-            return (dataset, query);
+            return (true, query);
         }
     }
 }
