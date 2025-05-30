@@ -18,7 +18,7 @@ namespace DataExplorer
             if (dataset == null)
                 return;
 
-            var (ok, query) = PrepareQuery(parserResults);
+            var (ok, query) = PrepareQuery(dataset, parserResults);
             if (!ok)
                 return;
 
@@ -49,13 +49,10 @@ namespace DataExplorer
             return dataset;
         }
 
-        internal static (bool, Query) PrepareQuery(ParserResults results)
+        internal static (bool, Query) PrepareQuery(Dataset dataset, ParserResults results)
         {
             var query = new Query();
-            Dataset? dataset = LoadData(results.FilePath);
-            if (dataset == null)
-                return (false, query);
-
+         
             (bool ok, int aggregationColumnId) = dataset.ColumnNameToId(results.Aggregation);
             if (!ok)
             {
