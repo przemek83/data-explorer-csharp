@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-using Xunit;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using DataExplorer;
 
-namespace DataExplorer.Tests
+namespace Tests
 {
     public class CalculatorTests
     {

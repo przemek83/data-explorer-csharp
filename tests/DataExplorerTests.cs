@@ -1,7 +1,7 @@
-using Xunit;
+using DataExplorer;
 using static DataExplorer.ArgsParser;
 
-namespace DataExplorer.Tests
+namespace Tests
 {
     public class DataExplorerTests
     {

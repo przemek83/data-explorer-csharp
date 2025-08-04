@@ -1,4 +1,4 @@
-﻿namespace DataExplorer.Tests
+﻿namespace Tests
 {
     internal class ConsoleSuppressor : IDisposable
     {

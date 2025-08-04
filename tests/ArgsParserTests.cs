@@ -1,8 +1,7 @@
-using System.CommandLine.Parsing;
-using Xunit.Abstractions;
+using DataExplorer;
 using static DataExplorer.ArgsParser;
 
-namespace DataExplorer.Tests
+namespace Tests
 {
     public class ArgsParserTests : IClassFixture<ConsoleSuppressor>
     {

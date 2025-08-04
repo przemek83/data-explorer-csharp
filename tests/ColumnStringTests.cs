@@ -1,4 +1,6 @@
-namespace DataExplorer.Tests
+using DataExplorer;
+
+namespace Tests
 {
     public class ColumnStringTests
     {

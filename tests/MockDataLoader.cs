@@ -1,6 +1,6 @@
 ﻿using DataExplorer;
 
-namespace DataExplorer.Tests
+namespace Tests
 {
     public class MockDataLoader : IDataLoader
     {
