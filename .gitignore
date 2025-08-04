@@ -64,3 +64,4 @@ Properties/
 v[0-9][0-9]/
 FileContentIndex/
 DesignTimeBuild/
+/.vs
