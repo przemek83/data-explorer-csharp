@@ -27,6 +27,45 @@ namespace Tests
         }
 
         [Fact]
+        public void Load_EmptyStream_ReturnsFalse()
+        {
+            using var stream = new MemoryStream();
+            var loader = new FileDataLoader(stream);
+
+            Assert.False(loader.Load());
+        }
+
+        [Fact]
+        public void Load_MismatchedHeadersAndTypes_ReturnsFalse()
+        {
+            var csv = "Col1;Col2\nINTEGER\n1;hello\n";
+            using var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(csv));
+            var loader = new FileDataLoader(stream);
+
+            Assert.False(loader.Load());
+        }
+
+        [Fact]
+        public void Load_UnknownColumnType_ReturnsFalse()
+        {
+            var csv = "Col1\nFOO\n1\n";
+            using var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(csv));
+            var loader = new FileDataLoader(stream);
+
+            Assert.False(loader.Load());
+        }
+
+        [Fact]
+        public void Load_DataLineWithWrongColumnCount_ReturnsFalse()
+        {
+            var csv = "Col1;Col2\nINTEGER;STRING\n1\n";
+            using var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(csv));
+            var loader = new FileDataLoader(stream);
+
+            Assert.False(loader.Load());
+        }
+
+        [Fact]
         public void Load_ShouldReturnFalse_WhenInvalidDataLoadedWithTooLittleEntries()
         {
             FileDataLoader loader = new FileDataLoader(GetInvalidStreamWithTooLittleEntries());
