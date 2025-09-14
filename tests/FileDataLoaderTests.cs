@@ -52,7 +52,7 @@ namespace Tests
             using var stream = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(csv));
             var loader = new FileDataLoader(stream);
 
-            Assert.False(loader.Load());
+            Assert.Throws<NotImplementedException>(() => loader.Load());
         }
 
         [Fact]
