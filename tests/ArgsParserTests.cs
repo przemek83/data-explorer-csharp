@@ -62,5 +62,13 @@ namespace Tests
             Assert.Equal("score", results.Aggregation);
             Assert.Equal("first_name", results.Grouping);
         }
+
+        [Fact]
+        public void ShouldExit_ReturnsFalse_WhenNoSpecialOptionIsPresent()
+        {
+            var args = new[] { "file.csv", "avg", "score", "group" };
+            var parser = new ArgsParser(args, new[] { "avg", "sum", "min", "max" });
+            Assert.False(parser.ShouldExit());
+        }
     }
 }
