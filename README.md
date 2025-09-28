@@ -88,14 +88,14 @@ It should generate similar output on Windows:
       DataExplorer succeeded (0.2s) → src\bin\Debug\net8.0\DataExplorer.dll
       Tests succeeded (0.1s) → tests\bin\Debug\net8.0\Tests.dll
     [xUnit.net 00:00:00.00] xUnit.net VSTest Adapter v2.4.5+1caef2f33e (64-bit .NET 8.0.15)
-    [xUnit.net 00:00:00.19]   Discovering: Tests
-    [xUnit.net 00:00:00.23]   Discovered:  Tests
-    [xUnit.net 00:00:00.23]   Starting:    Tests
-    [xUnit.net 00:00:00.29]   Finished:    Tests
+    [xUnit.net 00:00:00.22]   Discovering: Tests
+    [xUnit.net 00:00:00.26]   Discovered:  Tests
+    [xUnit.net 00:00:00.26]   Starting:    Tests
+    [xUnit.net 00:00:00.33]   Finished:    Tests
       Tests test succeeded (0.8s)
 
-    Test summary: total: 58, failed: 0, succeeded: 58, skipped: 0, duration: 0.8s
-    Build succeeded in 1.6s
+    Test summary: total: 67, failed: 0, succeeded: 67, skipped: 0, duration: 0.8s
+    Build succeeded in 1.8s
 
 
 # License
