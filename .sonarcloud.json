@@ -1,0 +1,9 @@
+{
+    "sonarSources": [
+      "src"
+    ],
+    "tests": [
+      "tests"
+    ]
+  }
+  
