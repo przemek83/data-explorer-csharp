@@ -1,9 +1,0 @@
-{
-    "sonarSources": [
-      "src"
-    ],
-    "tests": [
-      "tests"
-    ]
-  }
-  
