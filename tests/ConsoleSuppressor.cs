@@ -1,6 +1,6 @@
-﻿namespace Tests
+namespace Tests
 {
-    internal class ConsoleSuppressor : IDisposable
+    public class ConsoleSuppressor : IDisposable
     {
         private readonly TextWriter originalStdOutput;
         private readonly StringWriter suppressedStdOutput;

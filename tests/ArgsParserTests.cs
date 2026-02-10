@@ -3,8 +3,10 @@ using static DataExplorer.ArgsParser;
 
 namespace Tests
 {
-    public class ArgsParserTests : IClassFixture<ConsoleSuppressor>
+    public class ArgsParserTests(Tests.ConsoleSuppressor consoleSuppressor) : IClassFixture<ConsoleSuppressor>
     {
+        private readonly Tests.ConsoleSuppressor _consoleSuppressor = consoleSuppressor;
+
         [Fact]
         public void IsValid_ShouldReturnTrue_WhenArgumentsAreValid()
         {
