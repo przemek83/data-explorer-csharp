@@ -83,10 +83,10 @@ namespace Tests
             Assert.Equal(Operation.Type.AVG, query.Type);
         }
 
-        Dataset GetTestDataset()
+        private static Dataset GetTestDataset()
         {
-            return new Dataset(new MockDataLoader(headers: new[] { "AggregationColumn", "GroupingColumn", "StringColumn", "IntegerColumn" },
-               new[] { ColumnType.INTEGER, ColumnType.STRING, ColumnType.STRING, ColumnType.INTEGER },
+            return new Dataset(new MockDataLoader(headers: ["AggregationColumn", "GroupingColumn", "StringColumn", "IntegerColumn"],
+               [ColumnType.INTEGER, ColumnType.STRING, ColumnType.STRING, ColumnType.INTEGER],
                []));
         }
     }

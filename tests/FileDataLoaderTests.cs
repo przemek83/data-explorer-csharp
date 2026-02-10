@@ -8,21 +8,21 @@ namespace Tests
         [Fact]
         public void Load_ShouldReturnTrue_WhenValidSmallDataLoaded()
         {
-            FileDataLoader loader = new FileDataLoader(GetSmallValidStream());
+            var loader = new FileDataLoader(GetSmallValidStream());
             Assert.True(loader.Load());
         }
 
         [Fact]
         public void Load_ShouldReturnTrue_WhenValidDataLoaded()
         {
-            FileDataLoader loader = new FileDataLoader(GetValidStream());
+            var loader = new FileDataLoader(GetValidStream());
             Assert.True(loader.Load());
         }
 
         [Fact]
         public void Load_ShouldReturnFalse_WhenInvalidDataLoadedWithTooManyEntries()
         {
-            FileDataLoader loader = new FileDataLoader(GetInvalidStreamWithTooMuchEntries());
+            var loader = new FileDataLoader(GetInvalidStreamWithTooMuchEntries());
             Assert.False(loader.Load());
         }
 
@@ -68,14 +68,14 @@ namespace Tests
         [Fact]
         public void Load_ShouldReturnFalse_WhenInvalidDataLoadedWithTooLittleEntries()
         {
-            FileDataLoader loader = new FileDataLoader(GetInvalidStreamWithTooLittleEntries());
+            var loader = new FileDataLoader(GetInvalidStreamWithTooLittleEntries());
             Assert.False(loader.Load());
         }
 
         [Fact]
         public void GetColumnTypes_ShouldReturnCorrectColumnTypes_WhenSmallDataIsLoaded()
         {
-            FileDataLoader loader = new FileDataLoader(GetSmallValidStream());
+            var loader = new FileDataLoader(GetSmallValidStream());
             loader.Load();
             ColumnType[] types = loader.GetColumnTypes();
             Assert.Equal([ColumnType.INTEGER, ColumnType.STRING], types);
@@ -84,7 +84,7 @@ namespace Tests
         [Fact]
         public void GetColumnTypes_ShouldReturnCorrectColumnTypes_WhenDataIsLoaded()
         {
-            FileDataLoader loader = new FileDataLoader(GetValidStream());
+            var loader = new FileDataLoader(GetValidStream());
             loader.Load();
             ColumnType[] types = loader.GetColumnTypes();
             Assert.Equal([ColumnType.STRING, ColumnType.INTEGER, ColumnType.STRING, ColumnType.INTEGER], types);
@@ -93,7 +93,7 @@ namespace Tests
         [Fact]
         public void GetHeaders_ShouldReturnCorrectHeaders_WhenDataIsLoaded()
         {
-            FileDataLoader loader = new FileDataLoader(GetValidStream());
+            var loader = new FileDataLoader(GetValidStream());
             loader.Load();
             string[] headers = loader.GetHeaders();
             Assert.Equal(["first_name", "age", "movie_name", "score"], headers);
@@ -102,7 +102,7 @@ namespace Tests
         [Fact]
         public void GetHeaders_ShouldReturnCorrectHeaders_WhenSmallDataIsLoaded()
         {
-            FileDataLoader loader = new FileDataLoader(GetSmallValidStream());
+            var loader = new FileDataLoader(GetSmallValidStream());
             loader.Load();
             string[] headers = loader.GetHeaders();
             Assert.Equal(["header1", "header2"], headers);
@@ -111,7 +111,7 @@ namespace Tests
         [Fact]
         public void GetData_ShouldReturnCorrectData_WhenDataIsLoaded()
         {
-            FileDataLoader loader = new FileDataLoader(GetValidStream());
+            var loader = new FileDataLoader(GetValidStream());
             loader.Load();
             IColumn[] data = loader.GetData();
             Assert.Equal(4, data.Length);
@@ -122,7 +122,7 @@ namespace Tests
         [Fact]
         public void GetData_ShouldReturnCorrectData_WhenSmallDataIsLoaded()
         {
-            FileDataLoader loader = new FileDataLoader(GetSmallValidStream());
+            var loader = new FileDataLoader(GetSmallValidStream());
             loader.Load();
             IColumn[] data = loader.GetData();
             Assert.Equal(2, data.Length);
