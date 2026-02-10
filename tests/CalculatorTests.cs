@@ -31,15 +31,14 @@ namespace Tests
 
         private static Calculator CreateTestCalculator()
         {
-            var dataLoader = new MockDataLoader(new[] { "first_name", "age", "movie_name", "score" },
-                new ColumnType[] { ColumnType.STRING, ColumnType.INTEGER, ColumnType.STRING, ColumnType.INTEGER },
-                new IColumn[]
-                {
+            var dataLoader = new MockDataLoader(["first_name", "age", "movie_name", "score"],
+                [ColumnType.STRING, ColumnType.INTEGER, ColumnType.STRING, ColumnType.INTEGER],
+                [
                         CreateStringColumn([ "tim", "tim", "tamas", "tamas", "dave", "dave" ]),
                         CreateNumericColumn([26, 26, 44, 44, 0, 0 ]),
                         CreateStringColumn([ "inception", "pulp_fiction", "inception", "pulp_fiction", "inception", "ender's_game" ]),
                         CreateNumericColumn([ 8, 8, 7, 4, 8, 8 ])
-                });
+                ]);
             var dataset = new Dataset(dataLoader);
             dataset.Initialize();
             return new Calculator(dataset);

@@ -36,7 +36,7 @@ namespace Tests
         public void ColumnNameToId_ShouldReturnFalseAndNegativeOne_WhenColumnNameNotFound()
         {
             // Arrange
-            var loader = new MockDataLoader(headers: new[] { "Column1", "Column2" }, [], []);
+            var loader = new MockDataLoader(headers: ["Column1", "Column2"], [], []);
             var dataset = new Dataset(loader);
 
             // Act
@@ -50,7 +50,7 @@ namespace Tests
         [Fact]
         public void ColumnNameToId_ShouldReturnTrueAndProperId_WhenColumnNameFound()
         {
-            string[] headers = new[] { "Column1", "Column2" };
+            string[] headers = ["Column1", "Column2"];
             var loader = new MockDataLoader(headers: headers, [], []);
             var dataset = new Dataset(loader);
             dataset.Initialize();
@@ -72,7 +72,7 @@ namespace Tests
         public void GetColumnType_ShouldReturnCorrectType_WhenColumnIdIsValid(int columnId, ColumnType expectedType)
         {
             // Arrange
-            var loader = new MockDataLoader([], columnTypes: new[] { ColumnType.INTEGER, ColumnType.STRING }, []);
+            var loader = new MockDataLoader([], columnTypes: [ColumnType.INTEGER, ColumnType.STRING], []);
             var dataset = new Dataset(loader);
             dataset.Initialize();
 
@@ -87,7 +87,7 @@ namespace Tests
         [Fact]
         public void GetColumnType_ShouldReturnUnknown_WhenColumnIdIsInvalid()
         {
-            var loader = new MockDataLoader([], columnTypes: new[] { ColumnType.INTEGER, ColumnType.STRING }, []);
+            var loader = new MockDataLoader([], columnTypes: [ColumnType.INTEGER, ColumnType.STRING], []);
             var dataset = new Dataset(loader);
             dataset.Initialize();
 
