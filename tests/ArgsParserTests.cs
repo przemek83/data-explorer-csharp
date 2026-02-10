@@ -8,8 +8,8 @@ namespace Tests
         [Fact]
         public void IsValid_ShouldReturnTrue_WhenArgumentsAreValid()
         {
-            string[] args = new[] { "sample.txt", "avg", "score", "first_name" };
-            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
+            string[] args = ["sample.txt", "avg", "score", "first_name"];
+            var parser = new ArgsParser(args, Operation.Allowed());
 
             var result = parser.IsValid();
 
@@ -19,8 +19,8 @@ namespace Tests
         [Fact]
         public void IsValid_ShouldReturnFalse_WhenOperationIsInvalid()
         {
-            string[] args = new[] { "sample.txt", "invalid", "score", "first_name" };
-            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
+            string[] args = ["sample.txt", "invalid", "score", "first_name"];
+            var parser = new ArgsParser(args, Operation.Allowed());
 
             bool result = parser.IsValid();
 
@@ -30,8 +30,8 @@ namespace Tests
         [Fact]
         public void IsValid_ShouldReturnFalse_WhenNotEnoughArgsPassed()
         {
-            string[] args = new[] { "sample.txt", "invalid", "score" };
-            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
+            string[] args = ["sample.txt", "invalid", "score"];
+            var parser = new ArgsParser(args, Operation.Allowed());
 
             bool result = parser.IsValid();
 
@@ -41,8 +41,8 @@ namespace Tests
         [Fact]
         public void IsValid_ShouldReturnFalse_WhenTooManyArgsPassed()
         {
-            string[] args = new[] { "sample.txt", "avg", "score", "first_name", "excesive" };
-            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
+            string[] args = ["sample.txt", "avg", "score", "first_name", "excesive"];
+            var parser = new ArgsParser(args, Operation.Allowed());
 
             bool result = parser.IsValid();
 
@@ -52,8 +52,8 @@ namespace Tests
         [Fact]
         public void GetResults_ShouldReturnCorrectParsedValues_WhenArgumentsAreValid()
         {
-            string[] args = new[] { "sample.txt", "sum", "score", "first_name" };
-            ArgsParser parser = new ArgsParser(args, Operation.Allowed());
+            string[] args = ["sample.txt", "sum", "score", "first_name"];
+            var parser = new ArgsParser(args, Operation.Allowed());
 
             ParserResults results = parser.GetResults();
 
@@ -67,7 +67,7 @@ namespace Tests
         public void ShouldExit_ReturnsFalse_WhenNoSpecialOptionIsPresent()
         {
             var args = new[] { "file.csv", "avg", "score", "group" };
-            var parser = new ArgsParser(args, new[] { "avg", "sum", "min", "max" });
+            var parser = new ArgsParser(args, ["avg", "sum", "min", "max"]);
             Assert.False(parser.ShouldExit());
         }
     }
