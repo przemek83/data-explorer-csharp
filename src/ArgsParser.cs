@@ -22,7 +22,7 @@ namespace DataExplorer
 
             command_.AddValidator(result =>
             {
-                string operation = result.GetValueForArgument<string>((Argument<string>)arguments_[1]);
+                string operation = result.GetValueForArgument<string>(arguments_[1]);
                 if (string.IsNullOrEmpty(operation))
                 {
                     result.ErrorMessage = "Operation is required.";
@@ -53,10 +53,10 @@ namespace DataExplorer
         public ParserResults GetResults()
         {
             ParseResult result = command_.Parse(appParams_);
-            string file = result.GetValueForArgument<string>((Argument<string>)arguments_[0]);
-            string operation = result.GetValueForArgument<string>((Argument<string>)arguments_[1]);
-            string aggregation = result.GetValueForArgument<string>((Argument<string>)arguments_[2]);
-            string grouping = result.GetValueForArgument<string>((Argument<string>)arguments_[3]);
+            string file = result.GetValueForArgument<string>(arguments_[0]);
+            string operation = result.GetValueForArgument<string>(arguments_[1]);
+            string aggregation = result.GetValueForArgument<string>(arguments_[2]);
+            string grouping = result.GetValueForArgument<string>(arguments_[3]);
 
             return new ParserResults(file, operation, aggregation, grouping);
         }
