@@ -24,6 +24,8 @@ namespace Tests
             suppressedStdOutput.Dispose();
             Console.SetError(originalErrorOutput);
             suppressedErrorOutput.Dispose();
+
+            GC.SuppressFinalize(this);
         }
     }
 }
