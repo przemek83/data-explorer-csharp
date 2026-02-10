@@ -29,7 +29,7 @@ namespace Tests
             Assert.Equal(expected, result);
         }
 
-        private Calculator CreateTestCalculator()
+        private static Calculator CreateTestCalculator()
         {
             var dataLoader = new MockDataLoader(new[] { "first_name", "age", "movie_name", "score" },
                 new ColumnType[] { ColumnType.STRING, ColumnType.INTEGER, ColumnType.STRING, ColumnType.INTEGER },
@@ -45,7 +45,7 @@ namespace Tests
             return new Calculator(dataset);
         }
 
-        private Dictionary<string, int> CreateExpectedResult(string[] keys, int[] values)
+        private static Dictionary<string, int> CreateExpectedResult(string[] keys, int[] values)
         {
             var expected = new Dictionary<string, int>();
             for (int i = 0; i < keys.Length; i++)
@@ -53,7 +53,7 @@ namespace Tests
             return expected;
         }
 
-        private ColumnString CreateStringColumn(string[] data)
+        private static ColumnString CreateStringColumn(string[] data)
         {
             var column = new ColumnString();
             foreach (var item in data)
@@ -61,7 +61,7 @@ namespace Tests
             return column;
         }
 
-        private ColumnNumeric CreateNumericColumn(int[] data)
+        private static ColumnNumeric CreateNumericColumn(int[] data)
         {
             var column = new ColumnNumeric();
             foreach (var item in data)
