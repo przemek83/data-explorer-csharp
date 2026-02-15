@@ -11,6 +11,4 @@ jobs:
     with:
       sonar_project_key: ${{ github.repository_owner }}_${{ github.event.repository.name }}
       sonar_organization: ${{ github.repository_owner }}
-    secrets:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+    secrets: inherit
